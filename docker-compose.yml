@@ -1,0 +1,17 @@
+version: "3.8"
+
+volumes:
+  sqldata:
+
+services:
+  sqlserver:
+    container_name: "sqlserver"
+    image: "mcr.microsoft.com/mssql/server:2019-latest"
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_PID=Developer
+      - SA_PASSWORD=mySecret1234
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqldata:/var/opt/mssql
