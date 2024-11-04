@@ -6,13 +6,14 @@ namespace efproject.Models;
 [Table("Task")]
 public class Task
 {
-    [Key]
+    //[Key]
     public Guid TaskId {get;set;}
-    [ForeignKey("CategoryId")]
+    
+    //[ForeignKey("CategoryId")]
     public Guid CategoryId {get;set;}
 
-    [Required]
-    [MaxLength(200)]
+    //[Required]
+    //[MaxLength(200)]
     public string Title {get;set;}
 
     public string Description {get;set;}
@@ -23,7 +24,7 @@ public class Task
     
     public virtual  Category Category  {get;set;}
 
-    [NotMapped]
+    //[NotMapped]
     public string Summary {get;set;}
 }
 

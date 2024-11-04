@@ -17,7 +17,7 @@ Env.Load();
 var connectionString = Environment.GetEnvironmentVariable("SQLSERVER_CONNECTION_STRING");
 
 // Imprimir la cadena de conexión para verificación
-Console.WriteLine($"Connection String from .env: {connectionString}");
+//Console.WriteLine($"Connection String from .env: {connectionString}");
 
 // Validar que la cadena de conexión no esté vacía
 if (string.IsNullOrEmpty(connectionString))
