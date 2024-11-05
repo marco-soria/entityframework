@@ -40,4 +40,58 @@ app.MapGet("/dbconnection", async ([FromServices] TasksContext dbContext) =>
     return Results.Ok($"Database connection is {dbContext.Database.IsInMemory()}");
 });
 
+app.MapGet("/api/tasks", async ([FromServices] TasksContext dbContext)=>
+{
+    //return Results.Ok(dbContext.Tasks.Include(p=> p.Category).Where(p=> p.TaskPriority == efproject.Models.Priority.Low));
+    return Results.Ok(dbContext.Tasks.Include(p=> p.Category));
+});
+
+app.MapPost("/api/tasks", async ([FromServices] TasksContext dbContext, [FromBody] efproject.Models.Task task)=>
+{
+    task.TaskId = Guid.NewGuid();
+    task.CreationDate = DateTime.Now;
+    await dbContext.AddAsync(task);
+    //await dbContext.Tasks.AddAsync(task);
+
+    await dbContext.SaveChangesAsync();
+
+    return Results.Ok();   
+});
+
+app.MapPut("/api/tasks/{id}", async ([FromServices] TasksContext dbContext, [FromBody] efproject.Models.Task task,[FromRoute] Guid id)=>
+{
+    var currentTask = dbContext.Tasks.Find(id);
+
+    if(currentTask!=null)
+    {
+        currentTask.CategoryId = task.CategoryId;
+        currentTask.Title = task.Title;
+        currentTask.TaskPriority = task.TaskPriority;
+        currentTask.Description = task.Description;
+
+        await dbContext.SaveChangesAsync();
+
+        return Results.Ok();
+
+    }
+
+    return Results.NotFound();   
+});
+
+app.MapDelete("/api/tasks/{id}", async ([FromServices] TasksContext dbContext, [FromRoute] Guid id) =>
+{
+     var currentTask = dbContext.Tasks.Find(id);
+
+     if(currentTask!=null)
+     {
+         dbContext.Remove(currentTask);
+         await dbContext.SaveChangesAsync();
+
+         return Results.Ok();
+     }
+
+     return Results.NotFound();
+});
+
+
 app.Run();
