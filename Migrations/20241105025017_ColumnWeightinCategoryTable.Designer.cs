@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using efproject;
 
@@ -11,9 +12,11 @@ using efproject;
 namespace entityframework.Migrations
 {
     [DbContext(typeof(TasksContext))]
-    partial class TasksContextModelSnapshot : ModelSnapshot
+    [Migration("20241105025017_ColumnWeightinCategoryTable")]
+    partial class ColumnWeightinCategoryTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,6 +32,7 @@ namespace entityframework.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
@@ -42,20 +46,6 @@ namespace entityframework.Migrations
                     b.HasKey("CategoryId");
 
                     b.ToTable("Category", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            CategoryId = new Guid("fe2de405-c38e-4c90-ac52-da0540dfb4ef"),
-                            Name = "Pending Activities",
-                            Weight = 20
-                        },
-                        new
-                        {
-                            CategoryId = new Guid("fe2de405-c38e-4c90-ac52-da0540dfb402"),
-                            Name = "Personal Activities",
-                            Weight = 50
-                        });
                 });
 
             modelBuilder.Entity("efproject.Models.Task", b =>
@@ -71,6 +61,7 @@ namespace entityframework.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("TaskPriority")
@@ -86,24 +77,6 @@ namespace entityframework.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Task", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            TaskId = new Guid("fe2de405-c38e-4c90-ac52-da0540dfb410"),
-                            CategoryId = new Guid("fe2de405-c38e-4c90-ac52-da0540dfb4ef"),
-                            CreationDate = new DateTime(2024, 11, 4, 22, 10, 5, 735, DateTimeKind.Local).AddTicks(8136),
-                            TaskPriority = 1,
-                            Title = "Pay Utilities"
-                        },
-                        new
-                        {
-                            TaskId = new Guid("fe2de405-c38e-4c90-ac52-da0540dfb411"),
-                            CategoryId = new Guid("fe2de405-c38e-4c90-ac52-da0540dfb402"),
-                            CreationDate = new DateTime(2024, 11, 4, 22, 10, 5, 735, DateTimeKind.Local).AddTicks(8149),
-                            TaskPriority = 0,
-                            Title = "Finish watching a movie on Netflix"
-                        });
                 });
 
             modelBuilder.Entity("efproject.Models.Task", b =>

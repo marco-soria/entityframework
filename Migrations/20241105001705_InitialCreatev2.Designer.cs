@@ -12,8 +12,8 @@ using efproject;
 namespace entityframework.Migrations
 {
     [DbContext(typeof(TasksContext))]
-    [Migration("20241104214511_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20241105001705_InitialCreatev2")]
+    partial class InitialCreatev2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
